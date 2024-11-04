@@ -13,7 +13,7 @@ export default function Portfolio() {
                     <h2 className="text-2xl font-bold md:text-4xl md:leading-tight text-gray-900 sm:text-5xl">
                         From My Projects
                     </h2>
-                    <p className="mt-2 text-lg text-gray-600">
+                    <p className="px-4 sm:px-6 lg:px-8 mx-auto mt-2 text-lg text-gray-600">
                         Passion-driven insights to help you grow your business.
                     </p>
                 </div>
