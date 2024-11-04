@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 export default function ContactUs() {
-  // State to store form inputs
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -10,12 +9,10 @@ export default function ContactUs() {
     message: '',
   });
 
-  // Handle input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Create mailto link
   const handleSendInquiry = () => {
     const { firstName, lastName, email, phoneNumber, message } = formData;
     const mailtoLink = `mailto:manbinhminh99@gmail.com?subject=Contact%20Inquiry&body=First%20Name:%20${encodeURIComponent(
@@ -38,7 +35,7 @@ export default function ContactUs() {
         </div>
 
         <div className="mt-12 grid items-center lg:grid-cols-2 gap-6 lg:gap-16">
-          {/* Form Card */}
+          {/* Form Card - Visible on all screen sizes */}
           <div className="flex flex-col border rounded-xl p-4 sm:p-6 lg:p-8">
             <h2 className="mb-8 text-xl font-semibold text-gray-800">Fill in the form</h2>
             <form onSubmit={(e) => e.preventDefault()}>
@@ -97,8 +94,8 @@ export default function ContactUs() {
             </form>
           </div>
 
-          {/* Contact Information */}
-          <div className="divide-y divide-gray-200">
+          {/* Contact Information - Visible only on large screens */}
+          <div className="hidden lg:block divide-y divide-gray-200">
             <ContactInfo
               title="Data Expertise"
               description="I can analyze your data, provide insights, and support data-driven decision-making."

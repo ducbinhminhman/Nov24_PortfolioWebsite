@@ -5,24 +5,25 @@ const tabs = [
   {
     id: 'tabs-with-card-1',
     title: 'Description',
-    description: 'MinhShop is a sleek, modern e-commerce platform built to provide a fast, secure, and SEO-friendly online shopping experience. It utilizes Next.js for efficient page loading, Sanity.io as a CMS for easy content management with automatic updates, and Stripe for secure payment processing. Tailwind CSS ensures a responsive design across all devices, making it user-friendly and visually appealing.',
-    imageUrl: Pro2
-    },
+    description: 'MinhShop is a modern e-commerce platform, optimized for speed, security, and SEO with tools like Next.js, Sanity.io, and Stripe.',
+    imageUrl: Pro2,
+  },
   {
     id: 'tabs-with-card-2',
     title: 'Tools Used',
-    description: 'This app is built with Next.js, Sanity.io for content management, and Stripe for payment processing. Tailwind CSS is used for a consistent and responsive design.',
-    imageUrl: Pro2
+    description: 'Built with Next.js, Sanity.io for CMS, Stripe for payments, and Tailwind CSS for responsive design.',
+    imageUrl: Pro2,
   },
   {
     id: 'tabs-with-card-3',
     title: 'Visit',
-    description: 'https://minhshop-nike.vercel.app',
-    imageUrl: Pro2},
+    description: <a href="https://minhshop-nike.vercel.app" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">https://minhshop-nike.vercel.app</a>,
+    imageUrl: Pro2,
+  },
 ];
 
 const ReverseCard = () => {
-  const [activeTab, setActiveTab] = useState(tabs[0].id);
+  const [activeTab, setActiveTab] = useState(tabs[2].id);
 
   return (
     <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
@@ -32,7 +33,7 @@ const ReverseCard = () => {
           {/* Text Section - Forced to appear on the left */}
           <div className="lg:col-span-6 lg:order-1">
             <h2 className="text-2xl text-gray-800 font-bold sm:text-3xl">
-            MinhShop - A Modern E-commerce Platform
+              MinhShop - A Modern E-commerce Platform
             </h2>
 
             <nav className="grid gap-4 mt-5 md:mt-10" aria-label="Tabs" role="tablist" aria-orientation="vertical">
@@ -45,7 +46,9 @@ const ReverseCard = () => {
                     activeTab === tab.id
                       ? 'bg-white shadow-md hover:border-transparent'
                       : 'hover:bg-gray-200'
-                  } text-start focus:outline-none p-4 md:p-5 rounded-xl`}
+                  } text-start focus:outline-none p-4 md:p-5 rounded-xl ${
+                    tab.id === 'tabs-with-card-1' || tab.id === 'tabs-with-card-2' ? 'hidden lg:block' : ''
+                  }`}
                   aria-selected={activeTab === tab.id}
                   role="tab"
                 >

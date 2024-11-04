@@ -5,35 +5,35 @@ const tabs = [
   {
     id: 'tabs-with-card-1',
     title: 'Description',
-    description: 'MinhCipes creates personalized recipes based on your ingredients, cooking time, and dietary preferences, making it easy to discover new, delicious meals tailored just for you.',
+    description: 'MinhCipes creates personalized recipes based on your ingredients, cooking time, and dietary preferences.',
     imageUrl: Pro1,
   },
   {
     id: 'tabs-with-card-2',
     title: 'Tools Used',
-    description: 'This app is powered by OpenAI’s GPT-4, built with React on the frontend and Express on the backend, and styled with Tailwind CSS.',
+    description: 'Powered by OpenAI’s GPT-4, with React, Express, and styled with Tailwind CSS.',
     imageUrl: Pro1,
   },
   {
     id: 'tabs-with-card-3',
     title: 'Visit',
-    description: ' https://chefminh.vercel.app/',
+    description: <a href="https://chefminh.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">https://chefminh.vercel.app/</a>,
     imageUrl: Pro1,
   },
 ];
 
 const Card = () => {
-  const [activeTab, setActiveTab] = useState(tabs[0].id);
+  const [activeTab, setActiveTab] = useState(tabs[2].id);
 
   return (
     <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
       <div className="relative p-6 md:p-16">
-        <div className=" relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
+        <div className="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
           
           {/* Tab Navigation */}
-          <div className=" mb-10 lg:mb-0 lg:col-span-6 lg:col-start-8 lg:order-2">
+          <div className="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-8 lg:order-2">
             <h2 className="text-2xl text-gray-800 font-bold sm:text-3xl">
-            MinhCipes - An AI Recipe Generator
+              MinhCipes - An AI Recipe Generator
             </h2>
 
             <nav className="grid gap-4 mt-5 md:mt-10" aria-label="Tabs" role="tablist" aria-orientation="vertical">
@@ -46,7 +46,9 @@ const Card = () => {
                     activeTab === tab.id
                       ? 'bg-white shadow-md hover:border-transparent'
                       : 'hover:bg-gray-200'
-                  } text-start focus:outline-none p-4 md:p-5 rounded-xl`}
+                  } text-start focus:outline-none p-4 md:p-5 rounded-xl ${
+                    tab.id === 'tabs-with-card-1' || tab.id === 'tabs-with-card-2' ? 'hidden lg:block' : ''
+                  }`}
                   aria-selected={activeTab === tab.id}
                   role="tab"
                 >

@@ -17,7 +17,7 @@ export default function Portfolio() {
                         Passion-driven insights to help you grow your business.
                     </p>
                 </div>
-                <div className="mt-16"> {/* Add margin-top for spacing */}
+                <div className="mt-0"> {/* Add margin-top for spacing */}
                     <Card />
                     <ReverseCard />
                     <Quotes />
