@@ -16,11 +16,6 @@ const Hero = () => {
         playsInline
       />
 
-      {/* Header */}
-      <div className="relative z-30">
-        <Header />
-      </div>
-
       {/* About Section */}
       <div className="relative ">
         <Banner />

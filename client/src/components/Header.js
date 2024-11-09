@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import {
   Dialog,
   DialogPanel,
@@ -11,7 +12,7 @@ import {
   PopoverButton,
   PopoverGroup,
   PopoverPanel,
-} from '@headlessui/react'
+} from '@headlessui/react';
 import {
   ArrowPathIcon,
   Bars3Icon,
@@ -20,9 +21,9 @@ import {
   FingerPrintIcon,
   SquaresPlusIcon,
   XMarkIcon,
-} from '@heroicons/react/24/outline'
-import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
-import logo from '../assets/logo.svg'
+} from '@heroicons/react/24/outline';
+import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid';
+import logo from '../assets/logo.svg';
 
 const products = [
   { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
@@ -30,20 +31,20 @@ const products = [
   { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
   { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
   { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
-]
+];
 const callsToAction = [
   { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
   { name: 'Contact sales', href: '#', icon: PhoneIcon },
-]
+];
 
 export default function Example() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white">
+    <header className="bg-white ">
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <a href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <img
               alt=""
@@ -107,10 +108,10 @@ export default function Example() {
             </PopoverPanel>
           </Popover>
 
-          <a href="https://medium.com/@bnhminh_38309" className="text-sm/6 font-semibold text-gray-900">
+          <Link to="/blog" className="text-sm/6 font-semibold text-gray-900"> {/* Use Link for internal navigation */}
             Blog
-          </a>
-          <a href="https://www.linkedin.com/in/binhminhman/"  className="text-sm/6 font-semibold text-gray-900">
+          </Link>
+          <a href="https://www.linkedin.com/in/binhminhman/" className="text-sm/6 font-semibold text-gray-900">
             About
           </a>
           <a href="https://www.linkedin.com/in/binhminhman/" className="text-sm/6 font-semibold text-gray-900">
@@ -160,12 +161,12 @@ export default function Example() {
                     ))}
                   </DisclosurePanel>
                 </Disclosure>
-                <a
-                  href="https://medium.com/@bnhminh_38309"
+                <Link
+                  to="/blog"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Blog
-                </a>
+                </Link>
                 <a
                   href="https://www.linkedin.com/in/binhminhman/"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
@@ -186,5 +187,5 @@ export default function Example() {
         </DialogPanel>
       </Dialog>
     </header>
-  )
+  );
 }
