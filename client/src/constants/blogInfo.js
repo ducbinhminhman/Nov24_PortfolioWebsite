@@ -64,7 +64,8 @@ const blogInfo = [
       title: "Creating a Beautiful Power BI Template",
       description: "Learn how to build a visually appealing Power BI report template using design tools and consistent color schemes.",
       link: "https://medium.com/@bnhminh_38309/creating-a-beautiful-power-bi-template-dec3ff0b69bd?sk=9107833aa1aaa034a5c13e4a49aa28db",
-      date: "2024-08-24"
+      date: "2024-08-24",
+      featureLabel: "Pinned"
     },
     {
       imageUrl: "https://miro.medium.com/v2/resize:fit:720/format:webp/1*YBfk7b_ynb8CtWbDvPVbog.png",
@@ -85,8 +86,7 @@ const blogInfo = [
         title: "A Fun Story About DevOps with Real-World Tools",
         description: "Discover DevOps concepts through a lemonade stand story, making complex ideas easy to grasp with practical examples.",
         link: "https://medium.com/@bnhminh_38309/a-fun-story-about-devops-with-real-world-tools-cf3547e1258a?sk=e85555bbde33627530cc461b624d3ee4",
-        date: "2024-09-13",
-        featureLabel: "Pinned"
+        date: "2024-09-13"
     },
     {
         imageUrl: "https://miro.medium.com/v2/resize:fit:720/format:webp/1*BsOEGBw25ow-2u071mXoxA.png",

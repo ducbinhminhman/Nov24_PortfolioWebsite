@@ -23,7 +23,7 @@ export default function Example() {
           </div>
           <div className="text-center">
             <h1 className="text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
-              Think Creative
+              MinhHub
             </h1>
             <p className="mt-8 text-pretty text-lg font-medium text-white sm:text-xl/8">
             Building intelligent solutions today for a smarter, better future.

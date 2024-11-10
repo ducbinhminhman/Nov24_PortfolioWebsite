@@ -28,19 +28,24 @@ const About = () => {
             {/* Divider */}
             <div className="mb-8 mt-8 h-px w-full bg-black"></div>
             <div className="mb-6 flex flex-col gap-2 text-sm text-gray-500 sm:text-base lg:mb-8">
-              <p>
-                <strong>2024: </strong>Awarded Dean's List recognition at BI Norwegian Business School for ranking in the top 10% of MSc students.
-              </p>
-              <p>
-                <strong>2024: </strong>Developed automated apps at Northstar, streamlining data management and enhancing decision-making.
-              </p>
-              <p>
-                <strong>2024: </strong>Completed a master’s thesis on AI-driven portfolio strategies, receiving an A grade.
-              </p>
-              <p>
-                <strong>2021: </strong> Valedictorian in International Business, GPA 3.82/4, Mathematics Olympiad prize.
-              </p>
+            <p>
+                <strong>2024:</strong> Master’s in Data Science for Business, BI Norwegian Business School, avg. grade <strong>4.6/5</strong>.
+            </p>
+            <p>
+                <strong>2024:</strong> Dean’s List Spring 2024, top <strong>10%</strong> of MSc students.
+            </p>
+            <p>
+                <strong>2024:</strong> Built automated apps at <strong>NorthStar</strong> for data management.
+            </p>
+            <p>
+                <strong>2024:</strong> Thesis on AI portfolio strategies, earned <strong>A</strong>.
+            </p>
+            <p>
+                <strong>2021:</strong> <strong>Valedictorian</strong> in International Business, GPA <strong>3.82/4</strong>, Math Olympiad prize.
+            </p>
             </div>
+
+
             {/* Link */}
             <a
               href="https://www.linkedin.com/in/binhminhman/"

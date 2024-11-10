@@ -11,6 +11,8 @@ import ContactUs from './components/ContactUs';
 import Footer from './components/Footer';
 import BlogPage from './pages/BlogPage';
 import Header from './components/Header';
+import PortfolioPage from './pages/PortfolioPage';
+import AboutPage from './pages/AboutPage';
 
 function HomePage() {
   return (
@@ -34,8 +36,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} /> {/* Home page with all sections */}
           <Route path="/blog" element={<BlogPage />} /> {/* BlogPage route */}
-          <Route path="/about" element={<About />} /> {/* About page route */}
-          <Route path="/portfolio" element={<Portfolio />} /> {/* Portfolio page route */}
+          <Route path="/about" element={<AboutPage />} /> {/* About page route */}
+          <Route path="/portfolio" element={<PortfolioPage />} /> {/* Portfolio page route */}
           <Route path="/contact" element={<ContactUs />} /> {/* Contact page route */}
         </Routes>
         <div className="bg-white">
