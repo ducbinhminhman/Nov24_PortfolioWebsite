@@ -10,7 +10,7 @@ const portfolioInfo = [
       featureLabel: "Pinned"
     },
     {
-      imageUrl: "https://media.licdn.com/dms/image/v2/D4D2DAQEune2m0kFatw/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1730881733277?e=1731880800&v=beta&t=d6LuYh6cTIP5iJ9sEF_dUvJZQWtjlrukYs-fUWWq5gw",
+      imageUrl: "https://media.licdn.com/dms/image/v2/D4D2DAQEune2m0kFatw/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1730881733277?e=1733479200&v=beta&t=yuIquC9CqfBAxyGk0hQ9EAn8xitUyGb3s3z2cLiqcAE",
       title: "Portfolio Website",
       description: "A clean and modern portfolio website showcasing projects, blog, and achievements, built with React and Tailwind CSS.",
       link: "https://github.com/ducbinhminhman/Nov24_PortfolioWebsite",
@@ -25,7 +25,7 @@ const portfolioInfo = [
       date: "2024-03-05"
     },
     {
-      imageUrl: "https://media.licdn.com/dms/image/v2/D4D2DAQEuUkVYEg8PZQ/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1724166780488?e=1731880800&v=beta&t=_EuFyza6-AeAop4i6__FqSoMuLIH64GtXTyqcnw6hNk",
+      imageUrl: "https://media.licdn.com/dms/image/v2/D4D2DAQEuUkVYEg8PZQ/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1724166780488?e=1733479200&v=beta&t=4xmD0kks4IS0YzUtrxsCEBAda481wsb0n5_KYUaVSYE",
       title: "Fitness Tracker App",
       description: "A fitness tracking app using Streamlit and BigQuery to log workouts, track measurements, and visualize progress.",
       link: "https://github.com/ducbinhminhman/Fitness_Tracker_App",
@@ -54,7 +54,7 @@ const portfolioInfo = [
       date: "2024-11-10"
     },
     {
-      imageUrl: "https://media.licdn.com/dms/image/v2/D4D2DAQGruoLcV2k1fw/profile-treasury-image-shrink_1280_1280/profile-treasury-image-shrink_1280_1280/0/1724168679159?e=1731880800&v=beta&t=vlbGD1oses3rEfWZ9_dxZNPY-oMd2CO_3od7_pCuRmk",
+      imageUrl: "https://media.licdn.com/dms/image/v2/D4D2DAQGruoLcV2k1fw/profile-treasury-image-shrink_1280_1280/profile-treasury-image-shrink_1280_1280/0/1724168679159?e=1733479200&v=beta&t=9FxmUiSSAiQl-eLtc-aT7eKqdp-z4z5GSDivq2dU83A",
       title: "DAILY SOUL CONNECT",
       description: "A personal inspiration app offering daily uplifting messages, calming visuals, and practical tips. Inspired by Eat, Pray, Love and Think and Grow Rich, it’s designed for self-discovery and daily motivation.",
       link: "https://github.com/ducbinhminhman/prayApp",
