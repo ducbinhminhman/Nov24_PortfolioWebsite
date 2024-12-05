@@ -8,7 +8,7 @@ const BlogHero = () => {
         className="min-h-[35vh] md:min-h-[75vh] bg-center bg-cover bg-no-repeat relative rounded-xl"
         style={{
           backgroundImage:
-            "url('https://www.bing.com/th/id/OBTQ.BT9D74250C01F9862194A26E726584C5E8CAB6C9E7062AEF51BA4F21370A8391DA?qlt=90&pid=InlineBlock')",
+            "url('https://www.bing.com/th/id/OBTQ.BT96F9B2E0B3FDB24284C9C5E4DE6C9D514FF7831C760A60DF55AC8C6632CD5DEC?qlt=90&dpr=1.3&pid=InlineBlock')",
         }}
       >
         <div className="absolute bottom-0 start-0 end-0 max-w-lg text-center mx-auto p-6 md:start-auto md:text-start md:mx-0">
