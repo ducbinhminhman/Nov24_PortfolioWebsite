@@ -1,14 +1,16 @@
 // Blog.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { getFeaturedPosts, getAllPosts } from '../lib/sanity';
 
-const blogPosts = [
+// Dữ liệu mặc định để hiển thị khi đang tải
+const defaultBlogPosts = [
   {
     title: "Building Beautiful UIs Fast",
     description: "Create stunning UIs quickly and efficiently with Tailwind CSS component libraries, skipping the hassle of designing from scratch.",
     link: "https://medium.com/@bnhminh_38309/building-beautiful-uis-fast-how-i-stopped-designing-from-scratch-and-started-using-tailwind-808438f3a755",
     imageUrl: "https://images.unsplash.com/photo-1730708267873-a8a51afa6f67?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    label: "Latest"
+    featureLabel: "Latest"
   },
   {
     title: "Build an AI-Powered Recipe Generator ",
@@ -26,6 +28,50 @@ const blogPosts = [
 
 const Blog = () => {
   const navigate = useNavigate();
+  const [blogPosts, setBlogPosts] = useState(defaultBlogPosts);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    async function fetchBlogPosts() {
+      try {
+        // Lấy bài viết từ Sanity
+        const featuredPosts = await getFeaturedPosts();
+        const allPosts = await getAllPosts();
+        
+        // Logic chọn 3 bài viết
+        let postsToShow = [];
+        
+        // Ưu tiên bài featured
+        if (featuredPosts.length > 0) {
+          postsToShow = [...featuredPosts];
+        }
+        
+        // Nếu chưa đủ 3 bài, bổ sung bài mới nhất
+        if (postsToShow.length < 3) {
+          const nonFeaturedPosts = allPosts.filter(post => 
+            !postsToShow.some(p => p._id === post._id)
+          );
+          
+          postsToShow = [
+            ...postsToShow,
+            ...nonFeaturedPosts.slice(0, 3 - postsToShow.length)
+          ];
+        } else if (postsToShow.length > 3) {
+          // Nếu có nhiều hơn 3 bài featured, chỉ lấy 3 bài
+          postsToShow = postsToShow.slice(0, 3);
+        }
+        
+        setBlogPosts(postsToShow);
+      } catch (error) {
+        console.error("Error fetching blog posts:", error);
+        // Giữ lại bài viết mặc định nếu có lỗi
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    fetchBlogPosts();
+  }, []);
 
   const handleReadMoreClick = () => {
     window.scrollTo(0, 0); // Scroll to the top
@@ -55,16 +101,16 @@ const Blog = () => {
       {/* Grid */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {blogPosts.map((post, index) => (
-          <a key={index} className="group flex flex-col focus:outline-none" href={post.link}>
+          <a key={post._id || index} className="group flex flex-col focus:outline-none" href={post.link}>
             <div className="relative pt-[50%] sm:pt-[70%] rounded-xl overflow-hidden">
               <img
                 className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-xl"
                 src={post.imageUrl}
                 alt={post.title}
               />
-              {post.label && (
+              {post.featureLabel && (
                 <span className="absolute top-0 right-0 rounded-se-xl rounded-es-xl text-xs font-medium bg-gray-800 text-white py-1.5 px-3">
-                  {post.label}
+                  {post.featureLabel}
                 </span>
               )}
             </div>

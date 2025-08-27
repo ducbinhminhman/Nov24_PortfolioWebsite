@@ -36,7 +36,7 @@ export async function getAllPosts() {
 // Helper function to get featured posts
 export async function getFeaturedPosts() {
   try {
-    const posts = await client.fetch(`*[_type == "post" && defined(featureLabel)] | order(publishedAt desc) {
+    const posts = await client.fetch(`*[_type == "post" && featured == true] | order(publishedAt desc) {
       _id,
       title,
       description,
@@ -50,10 +50,10 @@ export async function getFeaturedPosts() {
       featureLabel
     }`);
     
-    return posts.length > 0 ? posts : formatStaticBlogInfo().filter(post => post.featureLabel);
+    return posts.length > 0 ? posts : formatStaticBlogInfo().filter(post => post.featured || post.featureLabel === "Pinned");
   } catch (error) {
     console.error("Error fetching from Sanity, using static data:", error);
-    return formatStaticBlogInfo().filter(post => post.featureLabel);
+    return formatStaticBlogInfo().filter(post => post.featured || post.featureLabel === "Pinned");
   }
 }
 
@@ -90,6 +90,7 @@ function formatStaticBlogInfo() {
     imageUrl: post.imageUrl,
     publishedAt: post.date,
     link: post.link,
-    featureLabel: post.featureLabel
+    featureLabel: post.featureLabel,
+    featured: post.featureLabel === "Pinned" || post.featureLabel === "Latest"
   }));
 }

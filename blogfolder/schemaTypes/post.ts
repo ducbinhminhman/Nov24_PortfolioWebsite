@@ -26,6 +26,13 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'featured',
+      title: 'Featured',
+      type: 'boolean',
+      description: 'Đánh dấu bài viết này để hiển thị ở trang chủ',
+      initialValue: false
+    }),
+    defineField({
       name: 'imageUrl',
       title: 'Image URL',
       type: 'url',
