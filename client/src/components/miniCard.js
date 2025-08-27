@@ -1,17 +1,24 @@
 import React from 'react';
 
-const MiniCard = ({ title, description, imageUrl, link, featureLabel }) => {
+const MiniCard = ({ title, description, imageUrl, link, featureLabel, featured }) => {
+  // Fallback image if imageUrl is missing
+  const fallbackImage = "https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=2006&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+  
   return (
     <div className="relative flex flex-col bg-white border shadow-sm rounded-xl">
       <div className="relative ">
         <img 
           className="w-full h-auto rounded-t-xl object-cover object-center transition duration-200 group-hover:scale-110" 
-          src={imageUrl} 
+          src={imageUrl || fallbackImage} 
           alt={title} 
+          onError={(e) => {
+            e.target.onerror = null; 
+            e.target.src = fallbackImage;
+          }}
         />
-        {featureLabel && (
+        {(featureLabel || featured) && (
           <span className="absolute top-2 right-2 bg-blue-600 text-white text-xs font-semibold py-1 px-2 rounded-lg">
-            {featureLabel}
+            {featureLabel || (featured ? "Featured" : "")}
           </span>
         )}
       </div>

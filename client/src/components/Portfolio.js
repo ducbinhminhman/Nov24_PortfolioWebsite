@@ -1,12 +1,34 @@
 // Portfolio.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import ReverseCard from './ReverseCard';
 import Quotes from './quotes';
 import { useNavigate } from 'react-router-dom';
+import { getFirstFeaturedProject, getSecondFeaturedProject } from '../lib/sanity';
 
 export default function Portfolio() {
     const navigate = useNavigate();
+    const [firstProject, setFirstProject] = useState(null);
+    const [secondProject, setSecondProject] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchFeaturedProjects() {
+            try {
+                const firstFeaturedProject = await getFirstFeaturedProject();
+                const secondFeaturedProject = await getSecondFeaturedProject();
+                
+                setFirstProject(firstFeaturedProject);
+                setSecondProject(secondFeaturedProject);
+            } catch (error) {
+                console.error("Error fetching featured projects:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        
+        fetchFeaturedProjects();
+    }, []);
 
     const handleReadMoreClick = () => {
         window.scrollTo(0, 0); // Scroll to the top
@@ -34,9 +56,17 @@ export default function Portfolio() {
                     </p>
                 </div>
                 <div className="mt-0">
-                    <Card />
-                    <ReverseCard />
-                    <Quotes />
+                    {loading ? (
+                        <div className="flex justify-center items-center py-16">
+                            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                        </div>
+                    ) : (
+                        <>
+                            <Card project={firstProject} />
+                            <ReverseCard project={secondProject} />
+                            <Quotes />
+                        </>
+                    )}
                 </div>
             </div>
         </div>

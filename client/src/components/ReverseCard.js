@@ -1,28 +1,57 @@
 import React, { useState } from 'react';
-import Pro2 from '../assets/pro2.png';
+import Pro2 from '../assets/pro2.png'; // Fallback image
 
-const tabs = [
-  {
-    id: 'tabs-with-card-1',
-    title: 'Description',
-    description: 'MinhShop is a modern e-commerce platform, optimized for speed, security, and SEO with tools like Next.js, Sanity.io, and Stripe.',
-    imageUrl: Pro2,
-  },
-  {
-    id: 'tabs-with-card-2',
-    title: 'Tools Used',
-    description: 'Built with Next.js, Sanity.io for CMS, Stripe for payments, and Tailwind CSS for responsive design.',
-    imageUrl: Pro2,
-  },
-  {
-    id: 'tabs-with-card-3',
-    title: 'Visit',
-    description: <a href="https://minhshop-nike.vercel.app" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">https://minhshop-nike.vercel.app</a>,
-    imageUrl: Pro2,
-  },
-];
+const ReverseCard = ({ project }) => {
+  // Use default data if no project is available
+  const defaultProject = {
+    title: "MinhShop - E-commerce Platform",
+    description: "MinhShop is a modern e-commerce platform, optimized for speed, security, and SEO with tools like Next.js, Sanity.io, and Stripe.",
+    tools: "Built with Next.js, Sanity.io for CMS, Stripe for payments, and Tailwind CSS for responsive design.",
+    link: "https://minhshop-nike.vercel.app",
+    imageUrl: Pro2
+  };
 
-const ReverseCard = () => {
+  // Create tabs based on project data
+  const tabs = project ? [
+    {
+      id: 'tabs-with-card-1',
+      title: 'Description',
+      description: project.description,
+      imageUrl: project.imageUrl || Pro2,
+    },
+    {
+      id: 'tabs-with-card-2',
+      title: 'Tools Used',
+      description: project.tools || defaultProject.tools,
+      imageUrl: project.imageUrl || Pro2,
+    },
+    {
+      id: 'tabs-with-card-3',
+      title: 'Visit',
+      description: <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{project.link}</a>,
+      imageUrl: project.imageUrl || Pro2,
+    },
+  ] : [
+    {
+      id: 'tabs-with-card-1',
+      title: 'Description',
+      description: defaultProject.description,
+      imageUrl: defaultProject.imageUrl,
+    },
+    {
+      id: 'tabs-with-card-2',
+      title: 'Tools Used',
+      description: defaultProject.tools,
+      imageUrl: defaultProject.imageUrl,
+    },
+    {
+      id: 'tabs-with-card-3',
+      title: 'Visit',
+      description: <a href={defaultProject.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{defaultProject.link}</a>,
+      imageUrl: defaultProject.imageUrl,
+    },
+  ];
+
   const [activeTab, setActiveTab] = useState(tabs[2].id);
 
   return (
@@ -33,7 +62,7 @@ const ReverseCard = () => {
           {/* Text Section - Forced to appear on the left */}
           <div className="lg:col-span-6 lg:order-1">
             <h2 className="text-2xl text-gray-800 font-bold sm:text-3xl">
-              MinhShop - A Modern E-commerce Platform
+              {project ? project.title : defaultProject.title}
             </h2>
 
             <nav className="grid gap-4 mt-5 md:mt-10" aria-label="Tabs" role="tablist" aria-orientation="vertical">

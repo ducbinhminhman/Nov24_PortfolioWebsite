@@ -1,12 +1,18 @@
 // src/lib/sanity.js
 import { createClient } from '@sanity/client';
 import blogInfo from '../constants/blogInfo'; // Import static blog info as fallback
+import portfolioInfo from '../constants/portfolioInfo'; // Import static portfolio info as fallback
+
+// Get Sanity configuration from environment variables with fallbacks
+const projectId = process.env.REACT_APP_SANITY_PROJECT_ID || 'e8s5muuk';
+const dataset = process.env.REACT_APP_SANITY_DATASET || 'production';
+const apiVersion = process.env.REACT_APP_SANITY_API_VERSION || '2023-05-03';
 
 export const client = createClient({
-  projectId: 'e8s5muuk', // Sanity Project ID
-  dataset: 'production', // or the name you chose
+  projectId,
+  dataset,
   useCdn: false, // Đặt thành false để sử dụng API trực tiếp
-  apiVersion: '2023-05-03', // use current date (YYYY-MM-DD) to target the latest API version
+  apiVersion,
 });
 
 // Helper function to get all blog posts
@@ -93,4 +99,239 @@ function formatStaticBlogInfo() {
     featureLabel: post.featureLabel,
     featured: post.featureLabel === "Pinned" || post.featureLabel === "Latest"
   }));
+}
+
+// Helper function to get all projects
+export async function getAllProjects() {
+  try {
+    const projects = await client.fetch(`*[_type == "project"] | order(publishedAt desc) {
+      _id,
+      title,
+      description,
+      tools,
+      useDirectImageUrl,
+      "imageUrl": select(
+        useDirectImageUrl == true => imageUrl,
+        mainImage.asset->url
+      ),
+      publishedAt,
+      link,
+      featureLabel,
+      featured
+    }`);
+    
+    return projects.length > 0 ? projects : formatStaticProjectInfo();
+  } catch (error) {
+    console.error("Error fetching projects from Sanity, using static data:", error);
+    return formatStaticProjectInfo();
+  }
+}
+
+// Helper function to get featured projects
+export async function getFeaturedProjects() {
+  try {
+    const projects = await client.fetch(`*[_type == "project" && (featured == true || defined(featureLabel))] | order(publishedAt desc) {
+      _id,
+      title,
+      description,
+      tools,
+      useDirectImageUrl,
+      "imageUrl": select(
+        useDirectImageUrl == true => imageUrl,
+        mainImage.asset->url
+      ),
+      publishedAt,
+      link,
+      featureLabel,
+      featured
+    }`);
+    
+    return projects.length > 0 ? projects : formatStaticProjectInfo().filter(project => project.featured || project.featureLabel);
+  } catch (error) {
+    console.error("Error fetching featured projects from Sanity, using static data:", error);
+    return formatStaticProjectInfo().filter(project => project.featured || project.featureLabel);
+  }
+}
+
+// Format static project info to match Sanity structure
+function formatStaticProjectInfo() {
+  return portfolioInfo.map((project, index) => ({
+    _id: `static-project-${index}`,
+    title: project.title,
+    description: project.description,
+    tools: project.tools || "",
+    imageUrl: project.imageUrl,
+    publishedAt: project.date,
+    link: project.link,
+    featureLabel: project.featureLabel,
+    featured: project.featureLabel === "Pinned" || project.featureLabel === "New"
+  }));
+}
+
+// Helper function to get the first featured project for the homepage Card
+export async function getFirstFeaturedProject() {
+  try {
+    // Trước tiên tìm dự án có firstFeatured = true
+    let project = await client.fetch(`*[_type == "project" && firstFeatured == true] | order(publishedAt desc)[0] {
+      _id,
+      title,
+      description,
+      tools,
+      useDirectImageUrl,
+      "imageUrl": select(
+        useDirectImageUrl == true => imageUrl,
+        mainImage.asset->url
+      ),
+      publishedAt,
+      link,
+      featureLabel,
+      featured
+    }`);
+    
+    // Nếu không tìm thấy, lấy dự án đầu tiên có featured = true
+    if (!project) {
+      project = await client.fetch(`*[_type == "project" && featured == true] | order(publishedAt desc)[0] {
+        _id,
+        title,
+        description,
+        tools,
+        useDirectImageUrl,
+        "imageUrl": select(
+          useDirectImageUrl == true => imageUrl,
+          mainImage.asset->url
+        ),
+        publishedAt,
+        link,
+        featureLabel,
+        featured
+      }`);
+    }
+    
+    // Nếu vẫn không tìm thấy, lấy dự án mới nhất
+    if (!project) {
+      project = await client.fetch(`*[_type == "project"] | order(publishedAt desc)[0] {
+        _id,
+        title,
+        description,
+        tools,
+        useDirectImageUrl,
+        "imageUrl": select(
+          useDirectImageUrl == true => imageUrl,
+          mainImage.asset->url
+        ),
+        publishedAt,
+        link,
+        featureLabel,
+        featured
+      }`);
+    }
+    
+    // Nếu không có dự án nào từ Sanity, sử dụng dữ liệu tĩnh
+    if (!project) {
+      // Ưu tiên dự án có featureLabel = "Pinned" và vị trí đầu tiên
+      const staticProjects = formatStaticProjectInfo();
+      const firstPinned = staticProjects.find(p => p.featureLabel === "Pinned");
+      return firstPinned || staticProjects[0];
+    }
+    
+    return project;
+  } catch (error) {
+    console.error("Error fetching first featured project from Sanity, using static data:", error);
+    const staticProjects = formatStaticProjectInfo();
+    const firstPinned = staticProjects.find(p => p.featureLabel === "Pinned");
+    return firstPinned || staticProjects[0];
+  }
+}
+
+// Helper function to get the second featured project for the homepage ReverseCard
+export async function getSecondFeaturedProject() {
+  try {
+    // Trước tiên tìm dự án có secondFeatured = true
+    let project = await client.fetch(`*[_type == "project" && secondFeatured == true] | order(publishedAt desc)[0] {
+      _id,
+      title,
+      description,
+      tools,
+      useDirectImageUrl,
+      "imageUrl": select(
+        useDirectImageUrl == true => imageUrl,
+        mainImage.asset->url
+      ),
+      publishedAt,
+      link,
+      featureLabel,
+      featured
+    }`);
+    
+    // Nếu không tìm thấy, lấy dự án thứ hai có featured = true
+    if (!project) {
+      const featuredProjects = await client.fetch(`*[_type == "project" && featured == true] | order(publishedAt desc)[0...2] {
+        _id,
+        title,
+        description,
+        tools,
+        useDirectImageUrl,
+        "imageUrl": select(
+          useDirectImageUrl == true => imageUrl,
+          mainImage.asset->url
+        ),
+        publishedAt,
+        link,
+        featureLabel,
+        featured
+      }`);
+      
+      if (featuredProjects.length > 1) {
+        project = featuredProjects[1]; // Lấy dự án thứ hai
+      }
+    }
+    
+    // Nếu vẫn không tìm thấy, lấy dự án mới thứ hai
+    if (!project) {
+      const projects = await client.fetch(`*[_type == "project"] | order(publishedAt desc)[0...2] {
+        _id,
+        title,
+        description,
+        tools,
+        useDirectImageUrl,
+        "imageUrl": select(
+          useDirectImageUrl == true => imageUrl,
+          mainImage.asset->url
+        ),
+        publishedAt,
+        link,
+        featureLabel,
+        featured
+      }`);
+      
+      if (projects.length > 1) {
+        project = projects[1]; // Lấy dự án thứ hai
+      }
+    }
+    
+    // Nếu không có dự án nào từ Sanity, sử dụng dữ liệu tĩnh
+    if (!project) {
+      // Ưu tiên dự án có featureLabel = "Pinned" và vị trí thứ hai
+      const staticProjects = formatStaticProjectInfo();
+      const pinnedProjects = staticProjects.filter(p => p.featureLabel === "Pinned");
+      
+      if (pinnedProjects.length > 1) {
+        return pinnedProjects[1]; // Lấy dự án ghim thứ hai
+      } else {
+        return staticProjects.length > 1 ? staticProjects[1] : staticProjects[0];
+      }
+    }
+    
+    return project;
+  } catch (error) {
+    console.error("Error fetching second featured project from Sanity, using static data:", error);
+    const staticProjects = formatStaticProjectInfo();
+    const pinnedProjects = staticProjects.filter(p => p.featureLabel === "Pinned");
+    
+    if (pinnedProjects.length > 1) {
+      return pinnedProjects[1]; // Lấy dự án ghim thứ hai
+    } else {
+      return staticProjects.length > 1 ? staticProjects[1] : staticProjects[0];
+    }
+  }
 }

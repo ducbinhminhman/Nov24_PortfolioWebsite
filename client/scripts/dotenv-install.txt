@@ -1,0 +1,13 @@
+# This is a package.json addition to handle dotenv
+# Add these dependencies to your package.json:
+# 
+# "dependencies": {
+#   ...existing dependencies...
+#   "dotenv": "^16.0.3"
+# }
+#
+# Then run: npm install
+
+# Instructions to install dotenv:
+# Run this command in your terminal:
+# npm install dotenv --save
