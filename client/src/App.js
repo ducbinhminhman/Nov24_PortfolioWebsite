@@ -13,6 +13,7 @@ import BlogPage from './pages/BlogPage';
 import Header from './components/Header';
 import PortfolioPage from './pages/PortfolioPage';
 import AboutPage from './pages/AboutPage';
+import SanityConnectionTest from './components/SanityConnectionTest';
 
 function HomePage() {
   return (
@@ -43,6 +44,8 @@ function App() {
         <div className="bg-white">
           <Footer />
         </div>
+        {/* Hiển thị component kiểm tra kết nối Sanity */}
+        <SanityConnectionTest />
       </div>
     </Router>
   );
