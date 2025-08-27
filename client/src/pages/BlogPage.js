@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MiniCard from '../components/miniCard';
 import BlogHero from '../components/BlogHero';
-import SanityConnectionTest from '../components/SanityConnectionTest';
 import { getAllPosts, getFeaturedPosts, getLatestPost } from '../lib/sanity';
 
 function BlogPage() {
@@ -40,7 +39,6 @@ function BlogPage() {
   return (
     <div className="mx-auto">
       <BlogHero />
-      <SanityConnectionTest />
       <div className="mx-auto max-w-screen-2xl px-4 py-2 md:py-10 md:px-8 pb-10">
         {loading ? (
           <div className="flex justify-center items-center py-10">

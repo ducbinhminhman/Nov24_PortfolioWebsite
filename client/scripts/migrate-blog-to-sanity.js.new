@@ -1,0 +1,46 @@
+// scripts/migrate-blog-to-sanity.js
+// This script helps you migrate your existing blog data to Sanity
+
+// Load environment variables
+require('dotenv').config({ path: '../.env' });
+
+const { createClient } = require('@sanity/client');
+const blogInfo = require('./BlogInfoCommonJS');
+
+// Configure your Sanity client
+const client = createClient({
+  projectId: process.env.SANITY_PROJECT_ID || 'e8s5muuk',
+  dataset: process.env.SANITY_DATASET || 'production',
+  token: process.env.SANITY_TOKEN, // Token from .env file
+  apiVersion: process.env.SANITY_API_VERSION || '2023-05-03',
+  useCdn: false, // We need to use the API directly for writes
+});
+
+// Import node-fetch cho Node.js
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+
+// Function to delete all existing posts
+async function deleteAllPosts() {
+  try {
+    // Check if we have a valid token
+    if (!process.env.SANITY_TOKEN) {
+      console.error('Error: No Sanity token provided. Please add a SANITY_TOKEN to your .env file.');
+      process.exit(1);
+    }
+    
+    // Fetch all existing posts
+    const query = `*[_type == "post"]`;
+    const existingPosts = await client.fetch(query);
+    console.log(`Found ${existingPosts.length} existing posts to delete.`);
+    
+    // Delete each post
+    for (const post of existingPosts) {
+      await client.delete(post._id);
+      console.log(`Deleted post: ${post.title || post._id}`);
+    }
+    
+    console.log('All existing posts deleted successfully.');
+  } catch (error) {
+    console.error('Error deleting existing posts:', error);
+  }
+}
