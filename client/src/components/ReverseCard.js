@@ -28,7 +28,10 @@ const ReverseCard = ({ project }) => {
     {
       id: 'tabs-with-card-3',
       title: 'Visit',
-      description: <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{project.link}</a>,
+      description: <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+        <span className="hidden sm:inline">{project.link}</span>
+        <span className="inline sm:hidden">View project website</span>
+      </a>,
       imageUrl: project.imageUrl || Pro2,
     },
   ] : [
@@ -47,8 +50,11 @@ const ReverseCard = ({ project }) => {
     {
       id: 'tabs-with-card-3',
       title: 'Visit',
-      description: <a href={defaultProject.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{defaultProject.link}</a>,
-      imageUrl: defaultProject.imageUrl,
+      description: <a href={defaultProject.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+        <span className="hidden sm:inline">{defaultProject.link}</span>
+        <span className="inline sm:hidden">View project website</span>
+      </a>,
+      imageUrl: defaultProject.imageUrl || Pro2,
     },
   ];
 
