@@ -74,6 +74,9 @@ export default function Example() {
             </PopoverPanel>
           </Popover>
 
+          <Link to="/" className="text-sm/6 font-semibold text-gray-900">
+            Home
+          </Link>
           <Link to="/blog" className="text-sm/6 font-semibold text-gray-900">
             Blog
           </Link>
@@ -121,6 +124,12 @@ export default function Example() {
                     {/* Product items content goes here */}
                   </DisclosurePanel>
                 </Disclosure>
+                <Link
+                  to="/"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                >
+                  Home
+                </Link>
                 <Link
                   to="/blog"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
