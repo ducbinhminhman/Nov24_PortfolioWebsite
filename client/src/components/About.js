@@ -1,7 +1,44 @@
 // About.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getAboutData } from '../lib/sanity';
 
 const About = () => {
+  const [aboutData, setAboutData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchAboutData() {
+      try {
+        const data = await getAboutData();
+        setAboutData(data);
+      } catch (error) {
+        console.error("Error fetching about data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    fetchAboutData();
+  }, []);
+
+  // Default values if Sanity data is not available
+  const name = aboutData?.name || "Minh";
+  const tagline = aboutData?.tagline || "Try Creative";
+  const role = aboutData?.role || "Developer & Data Analyst";
+  const bio = aboutData?.bio || "I'm a data-driven creator with a strong foundation in business and data science, passionate about building applications that solve real business challenges.";
+  const linkedinUrl = aboutData?.linkedinUrl || "https://www.linkedin.com/in/binhminhman/";
+  const email = aboutData?.email || "manbinhminh99@gmail.com";
+  const profileImage = aboutData?.profileImageUrl || require('../assets/MinhPic.jpg');
+  const resumeUrl = aboutData?.resumeUrl || require('../assets/resume.pdf');
+  
+  // Default achievements if Sanity data is not available
+  const achievements = aboutData?.achievements || [
+    { year: "2024", description: "Awarded Dean's List recognition at BI Norwegian Business School for ranking in the top 10% of MSc students." },
+    { year: "2024", description: "Developed automated apps at Northstar, streamlining data management and enhancing decision-making." },
+    { year: "2024", description: "Completed a master's thesis on AI-driven portfolio strategies, receiving an A grade." },
+    { year: "2021", description: "Valedictorian in International Business, GPA 3.82/4, Mathematics Olympiad prize." }
+  ];
+
   return (
     <section>
       {/* Container */}
@@ -12,39 +49,33 @@ const About = () => {
           <div className="flex flex-col items-start gap-2">
             <div className="flex items-center rounded-md bg-gray-300 px-3 py-1">
               <div className="mr-1 h-2 w-2 rounded-full bg-black"></div>
-              <p className="text-sm">Try Creative</p>
+              <p className="text-sm">{tagline}</p>
             </div>
             <p className="text-sm text-gray-500 sm:text-xl">
-              Developer &amp; Data Analyst
+              {role}
             </p>
             {/* Title */}
             <h1 className="mb-6 text-4xl font-bold md:text-6xl lg:mb-8">
-              Minh
+              {name}
             </h1>
             <p className="text-sm text-gray-500 sm:text-xl">
-              I'm a data-driven creator with a strong foundation in business and data science, 
-              passionate about building applications that solve real business challenges. 
+              {bio}
             </p>
             {/* Divider */}
             <div className="mb-8 mt-8 h-px w-full bg-black"></div>
             <div className="mb-6 flex flex-col gap-2 text-sm text-gray-500 sm:text-base lg:mb-8">
-              <p>
-                <strong>2024: </strong>Awarded Dean's List recognition at BI Norwegian Business School for ranking in the top 10% of MSc students.
-              </p>
-              <p>
-                <strong>2024: </strong>Developed automated apps at Northstar, streamlining data management and enhancing decision-making.
-              </p>
-              <p>
-                <strong>2024: </strong>Completed a master’s thesis on AI-driven portfolio strategies, receiving an A grade.
-              </p>
-              <p>
-                <strong>2021: </strong> Valedictorian in International Business, GPA 3.82/4, Mathematics Olympiad prize.
-              </p>
+              {achievements.map((achievement, index) => (
+                <p key={index}>
+                  <strong>{achievement.year}: </strong>{achievement.description}
+                </p>
+              ))}
             </div>
             {/* Link */}
             <a
-              href="https://www.linkedin.com/in/binhminhman/"
+              href={linkedinUrl}
               className="mb-6 flex items-center gap-2.5 text-center text-sm font-bold uppercase md:mb-10 lg:mb-12"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <p>Connect with me</p>
               <img
@@ -56,7 +87,7 @@ const About = () => {
             {/* Buttons */}
             <div className="flex flex-col gap-4 font-semibold sm:flex-row">
               <a
-                href="mailto:manbinhminh99@gmail.com" // Mailto link to open the default email client
+                href={`mailto:${email}`}
                 className="flex items-center gap-4 rounded-md bg-black px-6 py-3 text-white"
               >
                 <img
@@ -67,9 +98,9 @@ const About = () => {
                 <p>Email Me</p>
               </a>
               <a
-                href={require('../assets/resume.pdf')} // Link to your resume PDF file
-                target="_blank" // Open in a new tab
-                rel="noopener noreferrer" // Security best practice for external links
+                href={resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex gap-4 rounded-md border border-solid border-black px-6 py-3"
               >
                 <img
@@ -84,8 +115,8 @@ const About = () => {
           {/* Image Placeholder */}
           <div className="min-h-[530px] overflow-hidden rounded-md bg-gray-100">
             <img
-              src={require('../assets/MinhPic.jpg')}
-              alt="Minh"
+              src={profileImage}
+              alt={name}
               className="w-full h-full object-cover"
             />
           </div>

@@ -356,3 +356,28 @@ export async function getHeroData() {
     return null;
   }
 }
+
+// Get the active about section data
+export async function getAboutData() {
+  try {
+    const aboutData = await client.fetch(`*[_type == "about" && active == true][0] {
+      name,
+      tagline,
+      role,
+      bio,
+      "profileImageUrl": profileImage.asset->url,
+      linkedinUrl,
+      email,
+      "resumeUrl": resumeFile.asset->url,
+      achievements[] {
+        year,
+        description
+      }
+    }`);
+    
+    return aboutData || null;
+  } catch (error) {
+    console.error("Error fetching about data from Sanity:", error);
+    return null;
+  }
+}
