@@ -335,3 +335,24 @@ export async function getSecondFeaturedProject() {
     }
   }
 }
+
+// Get the active hero section data
+export async function getHeroData() {
+  try {
+    const heroData = await client.fetch(`*[_type == "hero" && active == true][0] {
+      title,
+      subtitle,
+      "backgroundVideoUrl": backgroundVideo.asset->url,
+      "mobileFallbackImageUrl": mobileFallbackImage.asset->url,
+      primaryButtonText,
+      primaryButtonLink,
+      secondaryButtonText,
+      secondaryButtonLink
+    }`);
+    
+    return heroData || null;
+  } catch (error) {
+    console.error("Error fetching hero data from Sanity:", error);
+    return null;
+  }
+}
