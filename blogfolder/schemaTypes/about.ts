@@ -31,9 +31,18 @@ export default defineType({
     }),
     defineField({
       name: 'profileImage',
-      title: 'Profile Image',
+      title: 'Homepage Profile Image',
       type: 'image',
-      description: 'Your profile image displayed in the about section',
+      description: 'Your profile image displayed in the homepage about section (square or horizontal format recommended)',
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
+      name: 'futuristicProfileImage',
+      title: 'Futuristic Page Profile Image',
+      type: 'image',
+      description: 'Your profile image for the futuristic about page (vertical portrait format recommended)',
       options: {
         hotspot: true,
       },

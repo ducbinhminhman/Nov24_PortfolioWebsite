@@ -3,6 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getFeaturedPosts, getAllPosts } from '../lib/sanity';
 
+// Helper function to limit description to approximately 35-40 words
+const limitDescription = (description) => {
+  if (!description) return '';
+  const words = description.split(' ');
+  if (words.length <= 40) return description;
+  return words.slice(0, 35).join(' ') + '...';
+};
+
 // Dữ liệu mặc định để hiển thị khi đang tải
 const defaultBlogPosts = [
   {
@@ -117,7 +125,7 @@ const Blog = () => {
 
             <div className="mt-7">
               <h3 className="text-xl font-semibold text-gray-800 group-hover:text-gray-600">{post.title}</h3>
-              <p className="mt-3 text-gray-800">{post.description}</p>
+              <p className="mt-3 text-gray-800">{limitDescription(post.description)}</p>
               <p className="mt-5 inline-flex items-center gap-x-1 text-sm text-blue-600 font-medium group-hover:underline">
                 Read more
                 <svg className="shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

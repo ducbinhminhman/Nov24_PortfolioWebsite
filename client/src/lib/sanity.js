@@ -366,6 +366,7 @@ export async function getAboutData() {
       role,
       bio,
       "profileImageUrl": profileImage.asset->url,
+      "futuristicProfileImageUrl": futuristicProfileImage.asset->url,
       linkedinUrl,
       email,
       "resumeUrl": resumeFile.asset->url,
@@ -379,5 +380,101 @@ export async function getAboutData() {
   } catch (error) {
     console.error("Error fetching about data from Sanity:", error);
     return null;
+  }
+}
+
+// Get futuristic door data (phi thuyền)
+export async function getFuturisticDoors() {
+  try {
+    const doors = await client.fetch(`*[_type == "futuristicDoor" && active == true] | order(order asc) {
+      _id,
+      content,
+      date,
+      createdAt,
+      "imageUrl": image.asset->url,
+      initialX,
+      initialY,
+      initialVelocityX,
+      initialVelocityY,
+      order
+    }`);
+    
+    // Process the date field - if date is empty, format createdAt to "MMM DD" format
+    const processedDoors = doors.map(door => {
+      if (!door.date && door.createdAt) {
+        const dateObj = new Date(door.createdAt);
+        const month = dateObj.toLocaleString('en-US', { month: 'short' });
+        const day = dateObj.getDate();
+        door.date = `${month} ${day}`;
+      }
+      return door;
+    });
+    
+    return processedDoors || [];
+  } catch (error) {
+    console.error("Error fetching futuristic doors from Sanity:", error);
+    // Fallback to static data
+    return [
+      {
+        _id: 'door1',
+        content: 'Creativity is the key to innovation',
+        date: 'Dec 15',
+        createdAt: '2025-12-15T12:00:00Z',
+        imageUrl: '/logo.svg',
+        initialX: 100,
+        initialY: 200,
+        initialVelocityX: 1.5,
+        initialVelocityY: -1.3,
+        order: 1
+      },
+      {
+        _id: 'door2',
+        content: 'Learning never stops',
+        date: 'Jan 21',
+        createdAt: '2025-01-21T12:00:00Z',
+        imageUrl: '/logo.svg',
+        initialX: 500,
+        initialY: 300,
+        initialVelocityX: -1.8,
+        initialVelocityY: 1.2,
+        order: 2
+      },
+      {
+        _id: 'door3',
+        content: 'Technology should empower people',
+        date: 'Mar 8',
+        createdAt: '2025-03-08T12:00:00Z',
+        imageUrl: '/logo.svg',
+        initialX: 800,
+        initialY: 150,
+        initialVelocityX: -1.2,
+        initialVelocityY: -1.5,
+        order: 3
+      },
+      {
+        _id: 'door4',
+        content: 'Continuous improvement is the path to excellence',
+        date: 'Apr 12',
+        createdAt: '2025-04-12T12:00:00Z',
+        imageUrl: '/logo.svg',
+        initialX: 300,
+        initialY: 400,
+        initialVelocityX: 2.0,
+        initialVelocityY: 1.0,
+        order: 4
+      },
+      {
+        _id: 'door5',
+        content: 'Adapt, evolve, and innovate',
+        date: 'May 25',
+        createdAt: '2025-05-25T12:00:00Z',
+        imageUrl: '/logo.svg',
+        initialX: 600,
+        initialY: 100,
+        initialVelocityX: -1.8,
+        initialVelocityY: 1.8,
+        order: 5
+      }
+    ];
   }
 }

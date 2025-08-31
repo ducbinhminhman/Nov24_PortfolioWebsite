@@ -1,5 +1,13 @@
 import React from 'react';
 
+// Helper function to limit description to approximately 35-40 words
+const limitDescription = (description) => {
+  if (!description) return '';
+  const words = description.split(' ');
+  if (words.length <= 40) return description;
+  return words.slice(0, 35).join(' ') + '...';
+};
+
 const MiniCard = ({ title, description, imageUrl, link, featureLabel, featured }) => {
   // Fallback image if imageUrl is missing
   const fallbackImage = "https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=2006&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
@@ -27,7 +35,7 @@ const MiniCard = ({ title, description, imageUrl, link, featureLabel, featured }
           {title}
         </h3>
         <p className="mt-1 text-gray-500 hidden md:block">
-          {description}
+          {limitDescription(description)}
         </p>
         <a 
           href={link} 

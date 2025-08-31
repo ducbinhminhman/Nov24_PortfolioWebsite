@@ -12,7 +12,8 @@ import Footer from './components/Footer';
 import BlogPage from './pages/BlogPage';
 import Header from './components/Header';
 import PortfolioPage from './pages/PortfolioPage';
-import AboutPage from './pages/AboutPage';
+import OldAboutPage from './pages/AboutPage';
+import FuturisticAboutPage from './pages/AboutPage_Futuristic';
 
 function HomePage() {
   return (
@@ -36,7 +37,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} /> {/* Home page with all sections */}
           <Route path="/blog" element={<BlogPage />} /> {/* BlogPage route */}
-          <Route path="/about" element={<AboutPage />} /> {/* About page route */}
+          <Route path="/about" element={<FuturisticAboutPage />} /> {/* About page route with new futuristic design */}
+          <Route path="/about-old" element={<OldAboutPage />} /> {/* Old About page route */}
           <Route path="/portfolio" element={<PortfolioPage />} /> {/* Portfolio page route */}
           <Route path="/contact" element={<ContactUs />} /> {/* Contact page route */}
         </Routes>
